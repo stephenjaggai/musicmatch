@@ -1,0 +1,12 @@
+{%  block title %}Music Recommendation System{%  endblock %}
+
+{%  block content %}
+
+<p>Enter your music history and click "submit" to recommend songs</p>
+
+<form action="home/recsys_result">
+  <input type="text" name="songs">
+  <input type="submit" value="Submit">
+</form>
+
+{%  endblock %}
