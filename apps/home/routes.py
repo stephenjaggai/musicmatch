@@ -66,4 +66,3 @@ def render_recsys_result():
     recommendations = recsys.content_based_recsys.recommend_songs(songs,spotify_data)
     recommendations = str(recommendations)
     return render_template('home/recsys_result.html', songs=songs, recommendations=recommendations)
-
