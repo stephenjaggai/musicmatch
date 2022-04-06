@@ -1,67 +1,15 @@
-import numpy as np
-import pandas as pd
 import spotipy
-import os
-
-spotify_data = pd.read_csv('recsys/data.csv.zip')
-genre_data = pd.read_csv('recsys/data_by_genres.csv')
-data_by_year = pd.read_csv('recsys/data_by_year.csv')
-spotify_data.head(10)
-
-def get_decade(year):
-    
-    period_start = int(year/10) * 10
-    decade = '{}s'.format(period_start)
-    
-    return decade
-
-spotify_data['decade'] = spotify_data['year'].apply(get_decade)
-
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-
-cluster_pipeline = Pipeline([('scaler', StandardScaler()), ('kmeans', KMeans(n_clusters=10))])
-
-X = genre_data.select_dtypes(np.number)
-cluster_pipeline.fit(X)
-genre_data['cluster'] = cluster_pipeline.predict(X)
-
-from sklearn.manifold import TSNE
-
-tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=2))])
-genre_embedding = tsne_pipeline.fit_transform(X)
-
-projection = pd.DataFrame(columns=['x', 'y'], data=genre_embedding)
-projection['genres'] = genre_data['genres']
-projection['cluster'] = genre_data['cluster']
-
-song_cluster_pipeline = Pipeline([('scaler', StandardScaler()), 
-                                  ('kmeans', KMeans(n_clusters=20, 
-                                   verbose=2))], verbose=True)
-X = spotify_data.select_dtypes(np.number)
-number_cols = list(X.columns)
-song_cluster_pipeline.fit(X)
-
-song_cluster_labels = song_cluster_pipeline.predict(X)
-
-spotify_data['cluster_label'] = song_cluster_labels
-
-from sklearn.decomposition import PCA
-
-pca_pipeline = Pipeline([('scaler', StandardScaler()), ('PCA', PCA(n_components=2))])
-song_embedding = pca_pipeline.fit_transform(X)
-
-projection = pd.DataFrame(columns=['x', 'y'], data=song_embedding)
-projection['title'] = spotify_data['name']
-projection['cluster'] = spotify_data['cluster_label']
-
+import pandas as pd
+import numpy as np
 from spotipy.oauth2 import SpotifyClientCredentials
 from collections import defaultdict
+import pickle
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="5481b70a40994caa9a664659f60b48da",
                                                            client_secret="0714dc4fb16047939e9577730b3107cb"))
 
+spotify_data = pickle.load(open('recsys/spotify_data.sav', 'rb'))
+song_cluster_pipeline = pickle.load(open('recsys/song_cluster_pipeline.sav', 'rb'))
 
 def find_song(name, year):
     
