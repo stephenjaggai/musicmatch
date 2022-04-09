@@ -62,7 +62,7 @@
                       </a>
                     -->
                       <div class="media-body">
-                        <span class="name mb-0 text-sm">Pursuit of happiness</span>
+                        <span class="name mb-0 text-sm">Pursuit of Happiness</span>
                       </div>
                     </div>
                   </th>
@@ -731,7 +731,33 @@
       </div>
     </div>-->
 
-    {% include "includes/footer.html" %}
+   <div>
+     <h2>music</h2>
+
+     <div class="row">
+      <table class="col m6 offset-m3">
+        <!-- Add jinja templateing to show Namy, type1, type2, Weight and Height of user's pokemon  -->
+        <tr> 
+          {% for header in headings%}
+          <th> {{header}}</th>
+          {% endfor%}
+        </tr>
+        
+        {% for row in data %}   
+                          
+        <tr> 
+          {% for cell in row%}
+           <td>{{ cell }}</td>
+           {% endfor %}
+        </tr>
+        {% endfor %}
+       
+
+      </table>
+     </div>
+    </div>
+
+   </div>
 
   </div>
 

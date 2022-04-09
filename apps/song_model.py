@@ -1,5 +1,16 @@
+import sqlite3
+from flask import Flask, request
+from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+
+
+
+app = Flask(__name__)
+app.debug = True
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
+db = SQLAlchemy(app)
 
 class Songs(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
@@ -15,16 +26,22 @@ class Songs(db.Model):
             'year' : self.year
         }
 
+db.create_all()
 'create song object working'
-newsong = Songs(name='Fix You', artist= 'Coldplay', year='2005') 
+newsong = Songs(name='Ride', artist= '21 pilots', year='2015') 
 
-print(newsong.toDict())
+'''print(newsong.toDict())'''
 
-"""
-song object not able to be commited to the db
+
+
+
 db.session.add(newsong)
 db.session.commit() 
 
-s = Songs.query.get(1)
-print(s.toDict())
-"""
+
+
+
+songs= Songs.query.all()
+
+for song in songs:
+    print (song.toDict())

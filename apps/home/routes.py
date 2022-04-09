@@ -3,12 +3,15 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+'from crypt import methods'
 from apps.home import blueprint
 from flask import Flask, render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 
-app = Flask(__name__)
+
+
+app = Flask(__name__, template_folder='apps\templates\home')
 app.register_blueprint(blueprint)
 
 @blueprint.route('/index')
@@ -66,3 +69,15 @@ def render_recsys_result():
     recommendations = recsys.content_based_recsys.recommend_songs(songs,spotify_data)
     recommendations = str(recommendations)
     return render_template('home/recsys_result.html', songs=songs, recommendations=recommendations)
+
+
+from  apps.song_model import Songs
+
+@blueprint.route('/tables', methods=['GET'])
+def render_table():
+    
+    
+    headings = ("Name", "Artist", "Year")
+    data = Songs.query.with_entities(Songs.name, Songs.artist, Songs.year).order_by(Songs.id.asc())
+    return render_template('tables.html', headings = headings, data = ("fix you", "coldplay", "2005"))
+    
