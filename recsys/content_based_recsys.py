@@ -98,3 +98,27 @@ def recommend_songs( song_list, spotify_data, n_songs=10):
     rec_songs = rec_songs[~rec_songs['name'].isin(song_dict['name'])]
     return rec_songs[metadata_cols].to_dict(orient='records')
 
+# get track ids from playlist
+
+def get_playlist_tracks(username,playlist_id):
+    results = sp.user_playlist_tracks(username,playlist_id)
+    tracks = results['items']
+    while results['next']:
+        results = sp.next(results)
+        tracks.extend(results['items'])
+    return tracks
+
+# get song info and audio analysis from song ids
+def getTrackFeatures(id):
+      meta = sp.track(id)
+      features = sp.audio_features(id)
+
+#Features can be removed/added according to the needs.
+      # Meta
+      name = meta['name']
+      release_date = meta['album']['release_date']
+
+
+      track = [name, release_date]
+      return track
+

@@ -30,10 +30,14 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h3 class="mb-0">Enter your music history and click "Submit" to recommend songs</h3>
+              <h3 class="mb-0">Enter your Spotify username and playlist id to recommend songs</h3>
             </div>
             <form action="home/recsys_result">
-              <input type="text" name="songs" class="form-control">
+              <p>Spotify username:</p>
+              <input type="text" name="username" class="form-control">
+              <br>
+              <p>Playlist id:</p>
+              <input type="text" name="playlist_id" class="form-control">
               <input type="submit" value="Submit" class="btn btn-primary my-4">
             </form>
         </div>
