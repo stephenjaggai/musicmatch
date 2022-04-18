@@ -1,18 +1,18 @@
-import cmd
 import json
 import sqlite3
 
-with open ('songs.json', 'r') as f:
-    jsondata = json.loads(f.read())
+db=sqlite3.connect('songs.db')
+c=db.cursor()
+
+openj =  json.load(open('songs.json'))
+jdum = json.dumps(openj)
+data = json.loads(jdum)
 
 
-with sqlite3.connect("songs.db") as conn:
-    keys = ["name", "artist"]
-    for entry in jsondata:
-        values = [entry.get(key, None) for key in keys]
-        cmd = """INSERT INTO songs VALUES(
-            ?,
-            ?
-            );"""
-        conn.execute(cmd,values)  
-    conn.commit()      
+for record in data['tracks']:
+    c.execute('INSERT INTO songs (name, artist) VALUES(?,?)',(record['name'],record['artist']))
+    db.commit()
+
+print('added successfully')
+
+

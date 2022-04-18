@@ -3,11 +3,14 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+from colorama import Cursor
 from apps.home import blueprint
 from flask import Flask, render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 import pandas as pd
+
+import sqlite3
 
 app = Flask(__name__)
 app.register_blueprint(blueprint)
@@ -105,3 +108,12 @@ def render_recsys_result():
     recommendations = recsys.content_based_recsys.recommend_songs(songs,spotify_data)
     recommendations = str(recommendations)
     return render_template('home/recsys_result.html', songs=songs, recommendations=recommendations)
+
+@blueprint.route('/tables')
+def render_catalog():
+    headings = ("Songs","Artist")
+    con = sqlite3.connect('songs.db')
+    db = con.cursor()
+    getsongs = db.execute('SELECT * FROM songs')
+    return render_template('home/tables.html', data = getsongs.fetchall(), headings = headings)
+

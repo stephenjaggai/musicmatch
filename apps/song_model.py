@@ -1,30 +1,39 @@
-from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
 
-class Songs(db.Model):
-    id = db.Column('id', db.Integer, primary_key=True)
-    name = db.Column('name', db.String(50))
-    artist = db.Column('artist', db.String(50))
-    year = db.Column('year', db.Integer)
+import sqlite3
+import json
+from unittest import result
+from colorama import Cursor
 
-    def toDict(self):
-        return{
-            'id' : self.id,
-            'name' : self.name,
-            'artist' : self.artist,
-            'year' : self.year
-        }
+#from django.db import connection
 
-'create song object working'
-newsong = Songs(name='Fix You', artist= 'Coldplay', year='2005') 
+#define connection and cursor
 
-print(newsong.toDict())
+connection = sqlite3.connect('songs.db')
 
-"""
-song object not able to be commited to the db
-db.session.add(newsong)
-db.session.commit() 
+Cursor = connection.cursor()
 
-s = Songs.query.get(1)
-print(s.toDict())
-"""
+#creating song table
+
+command1 = """CREATE TABLE IF NOT EXISTS
+songs(name TEXT, artist TEXT)"""
+
+Cursor.execute(command1)
+
+#adding data to song table
+
+#Cursor.execute("INSERT INTO songs VALUES ('Better', 'Khalid')")
+
+
+connection.commit()
+
+
+Cursor .execute("SELECT * FROM songs")
+
+results = Cursor.fetchall()
+print(results)
+
+
+###
+
+
+

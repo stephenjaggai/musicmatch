@@ -731,6 +731,32 @@
       </div>
     </div>-->
 
+    <div>
+      <h2>music</h2>
+ 
+      <div class="row">
+       <table class="col m6 offset-m3">
+         
+         <tr> 
+           {% for header in headings%}
+           <th> {{header}}</th>
+           {% endfor%}
+         </tr>
+         
+         {% for row in data %}   
+                           
+         <tr> 
+           {% for cell in row%}
+            <td>{{ cell }}</td>
+            {% endfor %}
+         </tr>
+         {% endfor %}
+        
+ 
+       </table>
+      </div>
+     </div>
+
     {% include "includes/footer.html" %}
 
   </div>
