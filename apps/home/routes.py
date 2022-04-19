@@ -109,11 +109,21 @@ def render_recsys_result():
     recommendations = str(recommendations)
     return render_template('home/recsys_result.html', songs=songs, recommendations=recommendations)
 
-@blueprint.route('/tables')
+@blueprint.route('/tables.html')
 def render_catalog():
     headings = ("Songs","Artist")
     con = sqlite3.connect('songs.db')
     db = con.cursor()
     getsongs = db.execute('SELECT * FROM songs')
     return render_template('home/tables.html', data = getsongs.fetchall(), headings = headings)
+
+
+@blueprint.route('/ytsongs.html')
+def render_youtube():
+    headings = ("Songs")
+    con = sqlite3.connect('songs.db')
+    db = con.cursor()
+    getsongs = db.execute('SELECT * FROM youtube')
+    return render_template('home/ytsongs.html', data = getsongs.fetchall(), headings = headings)
+
 

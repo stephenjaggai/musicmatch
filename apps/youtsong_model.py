@@ -12,28 +12,22 @@ connection = sqlite3.connect('songs.db')
 
 Cursor = connection.cursor()
 
-#creating song table for spotify
+#creating song table for spotify songs
 
-command1 = """CREATE TABLE IF NOT EXISTS
-songs(name TEXT, artist TEXT)"""
+command2 = """CREATE TABLE IF NOT EXISTS
+youtube(name TEXT)"""
 
-Cursor.execute(command1)
+Cursor.execute(command2)
 
 #adding data to song table
 
-#Cursor.execute("INSERT INTO songs VALUES ('Better', 'Khalid')")
+#Cursor.execute("INSERT INTO youtube VALUES ('Better')")
 
 
 connection.commit()
 
 
-Cursor .execute("SELECT * FROM songs")
+Cursor .execute("SELECT * FROM youtube")
 
 results = Cursor.fetchall()
 print(results)
-
-
-###
-
-
-
