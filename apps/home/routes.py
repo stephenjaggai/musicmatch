@@ -109,7 +109,7 @@ def render_recsys_result():
     recommendations = str(recommendations)
     return render_template('home/recsys_result.html', songs=songs, recommendations=recommendations)
 
-@blueprint.route('/tables')
+@blueprint.route('/tables.html')
 def render_catalog():
     headings = ("Songs","Artist")
     con = sqlite3.connect('songs.db')
