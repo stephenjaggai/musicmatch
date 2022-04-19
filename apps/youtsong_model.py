@@ -14,14 +14,14 @@ Cursor = connection.cursor()
 
 #creating song table for spotify songs
 
-command1 = """CREATE TABLE IF NOT EXISTS
-youtube(name TEXT,)"""
+command2 = """CREATE TABLE IF NOT EXISTS
+youtube(name TEXT)"""
 
-Cursor.execute(command1)
+Cursor.execute(command2)
 
 #adding data to song table
 
-Cursor.execute("INSERT INTO songs VALUES ('Better')")
+#Cursor.execute("INSERT INTO youtube VALUES ('Better')")
 
 
 connection.commit()
