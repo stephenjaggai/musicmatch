@@ -12,7 +12,7 @@ connection = sqlite3.connect('songs.db')
 
 Cursor = connection.cursor()
 
-#creating song table
+#creating song table for spotify
 
 command1 = """CREATE TABLE IF NOT EXISTS
 songs(name TEXT, artist TEXT)"""
