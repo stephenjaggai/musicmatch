@@ -4,42 +4,53 @@
 
 {% block content %}
 
-  <div class="header bg-primary pb-6">
-    <div class="container-fluid">
-      <div class="header-body">
-        <div class="row align-items-center py-4">
-          <div class="col-lg-6 col-7">
-            <h6 class="h2 text-white d-inline-block mb-0">Music Recommendation System</h6>
-            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            </nav>
-          </div>
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Music Recommendation System</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <form action="home/recsys_result">
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Spotify username</label>
+                    <input type="text" name="username" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Playlist ID</label>
+                    <input type="text" name="playlist_id" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary my-4">
+          </form>
         </div>
       </div>
     </div>
   </div>
 
-    <!-- Page content -->
-    <div class="container-fluid mt--6">
-      <div class="row">
-        <div class="col">
-          <div class="card">
-            <!-- Card header -->
-            <div class="card-header border-0">
-              <h3 class="mb-0">Enter your Spotify username and playlist id to recommend songs</h3>
-            </div>
-            <form action="home/recsys_result">
-              <p>Spotify username:</p>
-              <input type="text" name="username" class="form-control">
-              <br>
-              <p>Playlist id:</p>
-              <input type="text" name="playlist_id" class="form-control">
-              <input type="submit" value="Submit" class="btn btn-primary my-4">
-            </form>
-        </div>
-      </div>
-    </div>
-
-
+</div>
 
 {% endblock content %}
 
